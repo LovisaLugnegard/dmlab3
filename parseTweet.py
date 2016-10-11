@@ -9,49 +9,36 @@ from collections import Counter
 #var used to count pronouns
 pronomen = {'den':0, 'hon':0, 'det':0, 'han':0, 'hen':0, 'denna':0, 'denne':0}
 
-#json_string = '{"first_name": "Guido", "last_name":"Rossum"}'
 
-#parsed_json = json.loads(json_string) #loads is for string or unicode, load is for file or file-like object	
-
-#print(parsed_json['first_name'])
-
-
-#with open('inputJSONtest.json') as json_data:
-#	data = json.load(json_data) 
-#	print(data['text'])
-
-	#for line in data:
-#		print line.get('text')
-
-	#for line in json_data:
-	#	tweet =json.loads(line)
-	#	print tweet['text']
 
 #function to parse JSON document
 def load_json_multiple(segments):
     chunk = ""
-    for segment in segments:
-        chunk += segment
+    for line in segments:
+        chunk += line
         try:
-            yield json.dumps(chunk) #dumps loads json to string
+            yield json.loads(chunk) #loads json to dict object
             chunk = ""
         except ValueError:
             pass
 
 
 #count pronouns with Counter
-with open('inputJSONtest.json') as f:
+with open('jsonTEST') as f:
    for parsed_json in load_json_multiple(f):
-	count = Counter(parsed_json.split())
+	count = Counter(parsed_json['text'].lower().split())
 	for key in count:
 		if key in pronomen:
 			pronomen[key] += count[key]
+#print key och print pronomen ar endast för att se vad som hander under tiden, ta bort sen
 			print key
 			print pronomen[key]
-		#	print parsed_json['text'] 
-	#	nrden += 1
-	#	print parsed_json['text']
-	#	print nrden
+
+
+#save result in json-filen result.json
+with open('result.json', 'w') as fp:
+    json.dump(pronomen, fp)
+print pronomen
 
 #def count_many(needles, haystack):
  #   count = Counter(haystack.split())
