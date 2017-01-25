@@ -1,4 +1,4 @@
-﻿Applied Cloud Computing
+﻿Applied Cloud Computing, ht16
 In this assignment, you will build a prototype system to analyze a dataset of Twitter
 tweets collected beforehand using Twitter’s datastream API. The tweets are available in
 the public container ‘tweets’ in the SSC cloud, and the dataset consists of a number of
